@@ -6,7 +6,7 @@
 /*   By: ecakiray <ecakiray@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/25 17:57:27 by ecakiray          #+#    #+#             */
-/*   Updated: 2026/04/30 13:45:24 by ecakiray         ###   ########.fr       */
+/*   Updated: 2026/05/01 00:12:11 by ecakiray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,71 +31,65 @@
 //++ %% percentage sign
 //Your libftprintf.a has to be created at the root of your repository
 
-static void	ft_puthex(unsigned long nb, size_t *size, char c)
-{
-	char	to_print;
-	char	*hex;
-	char	type;
 
-	type = c;
-	if (type == 'x')
-		hex = "0123456789abcdef";
-	else
-		hex = "0123456789ABCDEF";
-	if (nb > 15)
-		ft_puthex (nb / 16, size, type);
-	to_print = *(hex + (nb % 16));
-	write(1, &to_print, 1);
-	(*size)++;
-}
-
-static void	ft_putdigit(long nb, size_t *size)
-{
-	char	c;
-
-	if (nb < 0)
-	{
-		write(1, "-", 1);
-		(*size)++;
-		nb *= -1;
-	}
-	if (nb > 9)
-		ft_putdigit (nb / 10, size);
-	c = 48 + (nb % 10);
-	write(1, &c, 1);
-	(*size)++;
-}
-
-static size_t	ft_print_i_d_u(long n)
+static size_t	ft_print_idu(long n)
 {
 	size_t		size;
+	char		c;
 
 	size = 0;
-	ft_putdigit(n, &size);
+	if (n < 0)
+	{
+		write(1, "-", 1);
+		size++;
+		n *= -1;
+	}
+	if (n > 9)
+		size += ft_print_idu (n / 10);
+	c = 48 + (n % 10);
+	write(1, &c, 1);
+	size++;
 	return (size);
 }
 
 static size_t	ft_print_hex(unsigned long n, char c)
 {
 	size_t		size;
+	char		*hex;
 
 	size = 0;
-	ft_puthex(n, &size, c);
+	if (c == 'x')
+		hex = "0123456789abcdef";
+	else
+		hex = "0123456789ABCDEF";
+	if (n > 15)
+		size += ft_print_hex (n / 16, c);
+	write(1, (hex + (n % 16)), 1);
+	size++;
 	return (size);
 }
 
-static size_t	ft_print_p(void *p)
+static size_t	ft_print_p(uintptr_t addr, int base)
 {
 	size_t		size;
+	char		*hex;
 
-	if (!p)
+	hex = "0123456789abcdef";
+	size = 0;
+	if (!addr)
 	{
 		write(1, "(nil)", 5);
 		return (5);
 	}
-	size = 2;
-	write(1, "0x", 2);
-	ft_puthex((uintptr_t)p, &size, 'x');
+	if (base == 0)
+	{
+		size = 2;
+		write(1, "0x", 2);
+	}
+	if (addr > 15)
+		size += ft_print_p(addr / 16, 1);
+	write(1, (hex + (addr % 16)), 1);
+	size++;
 	return (size);
 }
 
@@ -127,62 +121,43 @@ static size_t	ft_printc(int c)
 int	ft_printf(const char *string, ...)
 {
 	char	*toprint;
-	size_t	total_char;
-	// this is our list
+	size_t	tot_chr;
 	va_list	ap;
 
-	// the start of the list is string
 	va_start(ap, string);
 	toprint = (char *)string;
-	total_char = 0;
+	tot_chr = 0;
 	while (*toprint)
 	{
 		if (*toprint == '%')
 		{
 			toprint++;
 			if (*toprint == 's')
-			{
-				total_char += ft_prints(va_arg(ap, char *));
-				toprint++;
-			}
+				tot_chr += ft_prints(va_arg(ap, char *));
 			else if (*toprint == 'c')
-			{
-				total_char += ft_printc(va_arg(ap, int));
-				toprint++;
-			}
+				tot_chr += ft_printc(va_arg(ap, int));
 			else if (*toprint == '%')
-			{
-				total_char++;
-				write(1, toprint, 1);
-				toprint++;
-			}
+				tot_chr += ft_printc('%');
 			else if (*toprint == 'd' || *toprint == 'i' || *toprint == 'u')
 			{
 				if (*toprint == 'u')
-					total_char += ft_print_i_d_u((long)va_arg(ap, unsigned int));
+					tot_chr += ft_print_idu((long)va_arg(ap, unsigned int));
 				else
-					total_char += ft_print_i_d_u((long)va_arg(ap, int));
-				toprint++;
+					tot_chr += ft_print_idu((long)va_arg(ap, int));
 			}
 			else if (*toprint == 'x' || *toprint == 'X')
-			{
-				total_char += ft_print_hex(va_arg(ap, unsigned int), *toprint);
-				toprint++;
-			}
+				tot_chr += ft_print_hex(va_arg(ap, unsigned int), *toprint);
 			else if (*toprint == 'p')
-			{
-				total_char += ft_print_p(va_arg(ap, void *));
-				toprint++;
-			}
+				tot_chr += ft_print_p((uintptr_t)va_arg(ap, void *), 0);
+			toprint++;
 		}
 		else if (*toprint)
 		{
-			total_char++;
-			write(1, toprint, 1);
+			tot_chr += ft_printc(*toprint);
 			toprint++;
 		}		
 	}
-	return (total_char);
+	return (tot_chr);
 }
 // int	main ()
 // {
