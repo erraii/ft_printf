@@ -118,6 +118,33 @@ static size_t	ft_printc(int c)
 	return (1);
 }
 
+int	ft_printf_format(char **toprint, va_list ap)
+{
+	size_t	tot_chr;
+
+	tot_chr = 0;
+	(*toprint)++;
+	if (**toprint == 's')
+		tot_chr += ft_prints(va_arg(ap, char *));
+	else if (**toprint == 'c')
+		tot_chr += ft_printc(va_arg(ap, int));
+	else if (**toprint == '%')
+		tot_chr += ft_printc('%');
+	else if (**toprint == 'd' || **toprint == 'i' || **toprint == 'u')
+	{
+		if (**toprint == 'u')
+			tot_chr += ft_print_idu((long)va_arg(ap, unsigned int));
+		else
+			tot_chr += ft_print_idu((long)va_arg(ap, int));
+	}
+	else if (**toprint == 'x' || **toprint == 'X')
+		tot_chr += ft_print_hex(va_arg(ap, unsigned int), **toprint);
+	else if (**toprint == 'p')
+		tot_chr += ft_print_p((uintptr_t)va_arg(ap, void *), 0);
+	(*toprint)++;
+	return (tot_chr);
+}
+
 int	ft_printf(const char *string, ...)
 {
 	char	*toprint;
@@ -130,33 +157,14 @@ int	ft_printf(const char *string, ...)
 	while (*toprint)
 	{
 		if (*toprint == '%')
-		{
-			toprint++;
-			if (*toprint == 's')
-				tot_chr += ft_prints(va_arg(ap, char *));
-			else if (*toprint == 'c')
-				tot_chr += ft_printc(va_arg(ap, int));
-			else if (*toprint == '%')
-				tot_chr += ft_printc('%');
-			else if (*toprint == 'd' || *toprint == 'i' || *toprint == 'u')
-			{
-				if (*toprint == 'u')
-					tot_chr += ft_print_idu((long)va_arg(ap, unsigned int));
-				else
-					tot_chr += ft_print_idu((long)va_arg(ap, int));
-			}
-			else if (*toprint == 'x' || *toprint == 'X')
-				tot_chr += ft_print_hex(va_arg(ap, unsigned int), *toprint);
-			else if (*toprint == 'p')
-				tot_chr += ft_print_p((uintptr_t)va_arg(ap, void *), 0);
-			toprint++;
-		}
+			tot_chr += ft_printf_format(&toprint, ap);
 		else if (*toprint)
 		{
 			tot_chr += ft_printc(*toprint);
 			toprint++;
 		}		
 	}
+	va_end(ap);
 	return (tot_chr);
 }
 // int	main ()
