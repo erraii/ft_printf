@@ -6,12 +6,12 @@
 #    By: ecakiray <ecakiray@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/04/27 11:52:31 by ecakiray          #+#    #+#              #
-#    Updated: 2026/04/27 11:52:35 by ecakiray         ###   ########.fr        #
+#    Updated: 2026/05/03 12:17:00 by ecakiray         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
-SRCS = ft_printf.c
+SRCS = ft_printf.c ft_types.c
 HDRS = ft_printf.h
 OBJS = $(SRCS:.c=.o)
 CFLAGS = -Wall -Werror -Wextra
