@@ -141,5 +141,19 @@ Useful references for this project:
 
 ## AI Usage
 
-AI was used to help write and structure this README file according to the project subject requirements.
+AI was used especially to help write and structure this README file according to the project subject requirements.
+
+AI tools such as cs50.ai and MS Copilot (no code mode) were used in this project for:
+- Clarifying function behavior and edge cases
+- Debugging segmentation faults and memory leaks
+- Improving code readability and documentation
+
 It was not used to generate the core project logic. The implementation of `ft_printf()`, the helper functions, and the Makefile should be understood, tested, and explained by the student during peer evaluation.
+
+### Testing
+The project was tested using:
+- libft-unit-test by francinette: https://github.com/xicodomingues/francinette
+
+Special thanks to my all 42 Heilbronn colleagues.
+
+Made by ecakiray: ecakiray@student.42heilbronn.de | LinkedIn: [ecakiray](https://www.linkedin.com/in/eraycakiray/)

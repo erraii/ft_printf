@@ -6,29 +6,11 @@
 /*   By: ecakiray <ecakiray@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/25 17:57:27 by ecakiray          #+#    #+#             */
-/*   Updated: 2026/05/03 12:29:35 by ecakiray         ###   ########.fr       */
+/*   Updated: 2026/05/05 19:31:43 by ecakiray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-// #include <unistd.h>
-// #include <stddef.h>
-// #include <limits.h> 
-//void va_start(va_list ap, last);
-//type va_arg(va_list ap, type);
-//void va_end(va_list ap);
-//void va_copy(va_list dest, va_list src);
-//Your function has to handle the following conversions: cspdiuxX%
-//++ %c (single char)
-//++ %s (string)
-// %p  void - hexadecimal format
-// %d decimal base
-// %i integer base 10
-// %u unsigned decimal
-// %x hexadecimal lowercase - base 16
-// %X hexadecimal uppercase - base 16
-//++ %% percentage sign
-//Your libftprintf.a has to be created at the root of your repository
 
 static int	ft_printf_format(char **toprint, va_list ap)
 {
@@ -81,7 +63,7 @@ int	ft_printf(const char *string, ...)
 }
 // int	main ()
 // {
-// 	int	ret;
+	// 	int	ret;
 	// ret = ft_printf("My first string\n");
 	// printf("%d ",ret);
 	// ret = ft_printf("%c", '\n');
@@ -113,5 +95,7 @@ int	ft_printf(const char *string, ...)
 	// printf(" %p %p ", 0, 0);
 	// ft_printf("%u \n", LONG_MAX);
 	// ft_printf("%x \n", LONG_MAX);
-	// return (0);
+	// 	ft_printf("%d \n", 0.12);
+	// 	printf("%d", 0.12);
+	// 	return (0);
 // }
