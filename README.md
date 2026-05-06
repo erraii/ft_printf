@@ -135,7 +135,6 @@ Useful references for this project:
 
 - `man 3 printf`
 - `man 3 stdarg`
-- `man 2 write`
 - C documentation about variadic functions: `va_start`, `va_arg`, `va_copy`, and `va_end`
 - 42 project subject: `ft_printf`
 
