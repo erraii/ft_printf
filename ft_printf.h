@@ -6,7 +6,7 @@
 /*   By: ecakiray <ecakiray@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/26 11:19:24 by ecakiray          #+#    #+#             */
-/*   Updated: 2026/05/05 20:01:41 by ecakiray         ###   ########.fr       */
+/*   Updated: 2026/05/11 11:05:44 by ecakiray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdio.h>
 # include <stdint.h>
 # include <unistd.h>
+# include <stdarg.h>
 
 int		ft_printf(const char *str, ...);
 size_t	ft_print_idu(long n);

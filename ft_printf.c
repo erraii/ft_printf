@@ -6,7 +6,7 @@
 /*   By: ecakiray <ecakiray@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/25 17:57:27 by ecakiray          #+#    #+#             */
-/*   Updated: 2026/05/05 19:31:43 by ecakiray         ###   ########.fr       */
+/*   Updated: 2026/05/11 11:33:19 by ecakiray         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	ft_printf_format(char **toprint, va_list ap)
 	else if (**toprint == 'x' || **toprint == 'X')
 		tot_chr += ft_print_hex(va_arg(ap, unsigned int), **toprint);
 	else if (**toprint == 'p')
-		tot_chr += ft_print_p((uintptr_t)va_arg(ap, void *), 0);
+		tot_chr += ft_print_p(va_arg(ap, void *), 0);
 	(*toprint)++;
 	return (tot_chr);
 }
@@ -56,34 +56,34 @@ int	ft_printf(const char *string, ...)
 		{
 			tot_chr += ft_printc(*toprint);
 			toprint++;
-		}		
+		}
 	}
 	va_end(ap);
 	return (tot_chr);
 }
-// int	main ()
-// {
-	// 	int	ret;
-	// ret = ft_printf("My first string\n");
-	// printf("%d ",ret);
-	// ret = ft_printf("%c", '\n');
-	// printf("%d ",ret);
-	// ret = ft_printf("%s", "My first string as arg\n");
-	// printf("%d ",ret);
-	// ret = ft_printf("Just wanna print percentage sign: %% \n");
-	// printf("%d ",ret);
-	// ret = ft_printf(" NULL %s NULL ", NULL);
-	// printf("%d ",ret);
-	// ret = ft_printf("%d ", 2147483647);
-	// printf("%d ",ret);
-	// ret = ft_printf("%i ", -2147483648);
-	// printf("%d ",ret);
-	// ret = ft_printf("%u ", 9223372036854775807);
-	// printf("%d ",ret);
+int	main ()
+{
+		int	ret;
+	ret = ft_printf("My first string\n");
+	printf("%d ",ret);
+	ret = ft_printf("%c", '\n');
+	printf("%d ",ret);
+	ret = ft_printf("%s", "My first string as arg\n");
+	printf("%d ",ret);
+	ret = ft_printf("Just wanna print percentage sign: %% \n");
+	printf("%d ",ret);
+	ret = ft_printf(" NULL %s NULL ", NULL);
+	printf("%d ",ret);
+	ret = ft_printf("%d ", 2147483647);
+	printf("%d ",ret);
+	ret = ft_printf("%i ", -2147483648);
+	printf("%d ",ret);
+	ret = ft_printf("%u ", 9223372036854775807);
+	printf("%d ",ret);
 	// printf("%lu\n", LONG_MAX);
 	// printf("%lu\n", LONG_MIN);
 	// printf("%lu\n", ULONG_MAX);
-	// printf("%lld\n", 9223372036854775807LL);
+	printf("%lld\n", 9223372036854775807LL);
 	// ft_printf("%%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %%%c%%%s%%%d%%%i%%%u%%%
 	//x%%%X%%%% %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %c%%", 
 	// 'A', "42", 42, 42 ,42 , 42, 42, 'B', "-42", 
@@ -92,10 +92,10 @@ int	ft_printf(const char *string, ...)
 	// x%%%X%%%% %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %c%%",
 	// 'A', "42", 42, 42 ,42 , 42, 42, 'B', "-42", 
 	//-42, -42 ,-42 ,-42, 42, 'C', "0", 0, 0 ,0 ,0, 42, 0);
-	// printf(" %p %p ", 0, 0);
+	printf(" %p %p ", 0, 0);
 	// ft_printf("%u \n", LONG_MAX);
 	// ft_printf("%x \n", LONG_MAX);
 	// 	ft_printf("%d \n", 0.12);
 	// 	printf("%d", 0.12);
-	// 	return (0);
-// }
+		return (0);
+}
